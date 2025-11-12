@@ -10,7 +10,7 @@ const signup = async (req,res)=>{
         if(user){
             return res.status(409)
                 .json({
-                    message: "User Already Exiest..",
+                    message: "user already exiest",
                     success: false
                 })
         }
@@ -19,13 +19,13 @@ const signup = async (req,res)=>{
         await userModel.save();
         res.status(201)
             .json({
-                message: "Signup Successfully..",
+                message: "signup successfully",
                 success: true
             }) 
     } catch(err) {
         res.status(500)
             .json({
-                message: "Internal Server Error..",
+                message: "internal server error",
                 success: false
             }) 
     }
@@ -39,7 +39,7 @@ const login = async (req,res)=>{
         if(!user){
             return res.status(409)
                 .json({
-                    message: "User Not Exiest..",
+                    message: "user not exiest",
                     success: false
                 })
         }
@@ -47,22 +47,29 @@ const login = async (req,res)=>{
         if(!isPassEqual){
             return res.status(409)
                 .json({
-                    message: "User Not Exiest..",
+                    message: "user not exiest",
                     success: false
                 })
         }
 
-
+        const jwtToken = jwt.sign(
+            {email: user.email,_id: user._id},
+            process.env.JWT_SECRET,
+            {expiresIn: "24h"}
+        )
 
         res.status(201)
             .json({
-                message: "Signup Successfully..",
-                success: true
+                message: "login successfully",
+                success: true,
+                jwtToken,
+                email,
+                name:user.name
             }) 
     } catch(err) {
         res.status(500)
             .json({
-                message: "Internal Server Error..",
+                message: "internal server error",
                 success: false
             }) 
     }

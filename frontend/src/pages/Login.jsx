@@ -26,7 +26,7 @@ const Login = () => {
       return handelError("Email and Password are required.!")
     }
     try{
-      const response = await axios.post("http://localhost:8080/auth/login",formData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/login`,formData);
 
       if(response.data.message == "login successfully"){
           localStorage.setItem("token",response.data.jwtToken);

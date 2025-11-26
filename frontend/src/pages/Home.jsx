@@ -27,7 +27,7 @@ const home = () => {
    const fatchProduct = async ()=>{
     try{  
       
-      const product = await axios.get("http://localhost:8080/product/all-product",
+      const product = await axios.get(`${import.meta.env.VITE_API_URL}/product/all-product`,
         {
           headers:{
             "Authorization": localStorage.getItem("token")

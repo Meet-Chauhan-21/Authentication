@@ -35,7 +35,7 @@ const Signup = () => {
           return; // Stop execution, don’t send request
         }
      try {
-      const response = await axios.post("http://localhost:8080/auth/signup", formData);
+      const response = await axios.post(`${import.meta.env.VITE_API_URL}/auth/signup`, formData);
       console.log("message : ",response.data.message);
       
       if(response.data.message === "signup successfully"){
